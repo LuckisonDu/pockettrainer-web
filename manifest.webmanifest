@@ -1,0 +1,14 @@
+{
+  "name": "PocketTrainer",
+  "short_name": "PocketTrainer",
+  "description": "Train a small AI in your browser. It double-checks every training step and repairs itself. Works offline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EEF1F6",
+  "theme_color": "#0E8A7F",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

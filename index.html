@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PocketTrainer</title>
+<meta name="description" content="Train a small AI in your browser. It double-checks every training step and repairs itself. Works offline.">
+<meta name="theme-color" content="#0E8A7F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="stage"><div id="phone"><div id="shell">
+  <header id="topbar"></header>
+  <main id="main"><div id="view"></div></main>
+  <nav id="tabbar" aria-label="Main"></nav>
+  <dialog id="sheet" aria-modal="true"><div class="in" id="sheetbody"></div></dialog>
+  <div id="toast" role="status"></div>
+</div></div></div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
