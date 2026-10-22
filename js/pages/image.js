@@ -15,8 +15,8 @@ const DEFAULT = { name: 'onnx-community/mobilenetv4_conv_small.e2400_r224_in1k',
 let ortMod;
 async function loadOrt() {
   if (ortMod) return ortMod;
-  ortMod = await import(new URL('../../vendor/ort.webgpu.min.mjs', import.meta.url));
-  const o = ortMod.env.wasm; o.wasmPaths = new URL('../../vendor/', import.meta.url).href; o.numThreads = 1;   // 单线程：不需要特殊的跨源隔离头
+  ortMod = await import(new URL('../../vendor/ort.webgpu.min.js', import.meta.url));   // .js 副本：有些服务器（如 nginx 默认配置）把 .mjs 当成非 JavaScript，模块加载会失败
+  const o = ortMod.env.wasm; o.wasmPaths = { mjs: new URL('../../vendor/ort-wasm-simd-threaded.asyncify.js', import.meta.url).href, wasm: new URL('../../vendor/ort-wasm-simd-threaded.asyncify.wasm', import.meta.url).href }; o.numThreads = 1;   // 单线程：不需要特殊的跨源隔离头
   return ortMod;
 }
 const softmax = a => { const m = Math.max(...a), e = Array.from(a, v => Math.exp(v - m)), s = e.reduce((x, y) => x + y, 0); return e.map(v => v / s); };
