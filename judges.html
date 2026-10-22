@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PocketTrainer — Judges' quick start</title>
+<meta name="description" content="Try PocketTrainer in 60 seconds. Three links, three steps.">
+<style>
+:root{--teal:#0E8A7F;--ink:#14202B;--mute:#5B6B7A;--bg:#EEF1F6;--card:#fff;--line:#DCE3EA}
+@media(prefers-color-scheme:dark){:root{--ink:#E7EDF3;--mute:#93A3B3;--bg:#0E1318;--card:#18202A;--line:#2A3542}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:26px;margin:0 0 4px}h2{font-size:18px;margin:22px 0 8px}.mute{color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:10px 0}
+.row{display:flex;gap:14px;align-items:center}.row img{width:96px;height:96px;flex:none;background:#fff;border-radius:8px;padding:4px}
+.row b{display:block}a{color:var(--teal);word-break:break-all}
+.btn{display:inline-block;background:var(--teal);color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;margin-top:6px}
+ol{padding-left:22px}li{margin:6px 0}.res{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res div{border-radius:12px;padding:10px 12px;font-weight:700}.bad{background:#FDE2E0;color:#9B1C1C}.ok{background:#D7EFE0;color:#166534}
+.small{font-size:13px}
+</style></head><body><main>
+<h1>PocketTrainer</h1>
+<p class="mute">Learn AI on the phone you already have — even an old one. No server, no laptop, no internet. Congressional App Challenge 2026 · Luckison Du</p>
+
+<h2>Try it in 60 seconds</h2>
+<div class="card"><ol>
+<li>Open the web version (no install): <a class="btn" href="https://luckisondu.github.io/pockettrainer-web/#/lab">Open the Protection lab</a></li>
+<li>Press <b>Simulate a system interruption</b> with protection <b>off</b>, then <b>on</b>.</li>
+<li>Compare the two results:</li></ol>
+<div class="res"><div class="bad">Protection off → accuracy ≈ 10%<br><span class="small">training silently ruined, no error shown</span></div>
+<div class="ok">Protection on → accuracy ≈ 87%<br><span class="small">error detected and repaired automatically</span></div></div>
+<p class="small mute">On the web and Android versions the interruption is a software simulation (labelled in the app). On iPhone 16 the same effect was reproduced with a real GPU recovery event. Numbers are from our own test logs.</p></div>
+
+<h2>Three ways to run it</h2>
+<div class="card row"><img src="judges/qr_web.svg" alt="QR code: web version"><div><b>Web version (any phone or laptop, nothing to install)</b><a href="https://luckisondu.github.io/pockettrainer-web/">luckisondu.github.io/pockettrainer-web</a></div></div>
+<div class="card row"><img src="judges/qr_apk.svg" alt="QR code: Android APK"><div><b>Android (APK, 38 MB)</b><a href="https://github.com/LuckisonDu/pockettrainer-web/releases/download/android-v1.0/PocketTrainer-android-v1.0.apk">PocketTrainer-android-v1.0.apk</a><span class="small mute">Allow “install unknown apps”. Tested on a Galaxy A12s.</span></div></div>
+<div class="card row"><img src="judges/qr_tf.svg" alt="QR code: iPhone (TestFlight)"><div><b>iPhone (TestFlight)</b><a href="https://testflight.apple.com/join/PG93UveP">testflight.apple.com/join/PG93UveP</a><span class="small mute">Install the free TestFlight app first. Test review may still be pending when you read this.</span></div></div>
+
+<h2>What is inside</h2>
+<div class="card"><ul>
+<li>Train a small AI on-device (5,000 training photos, 2,000 unseen test photos, 10 classes) — about 87% accuracy.</li>
+<li>Self-check every step, atomic checkpoints, resume after a crash (identical result).</li>
+<li>Export the trained model to Core ML and PyTorch-readable weights (iPhone).</li>
+<li>Search GitHub and Hugging Face, notes, assistant, 5 languages, works offline.</li></ul>
+<p class="small mute">Languages and tools: Swift/SwiftUI (iPhone), Kotlin/Jetpack Compose (Android), HTML/CSS/JavaScript + WebAssembly (web). AI tools (Claude) were used and are disclosed file by file in the repositories' AI_DISCLOSURE.md.</p></div>
+
+<h2>Source code and verification</h2>
+<div class="card row"><img src="judges/qr_src.svg" alt="QR code: source repository"><div><b>Source repository</b><a href="https://github.com/LuckisonDu/pockettrainer-web">github.com/LuckisonDu/pockettrainer-web</a><span class="small mute">README, VERIFY.md (all numbers), AI_DISCLOSURE.md.</span></div></div>
+</main></body></html>
