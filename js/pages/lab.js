@@ -8,9 +8,13 @@ import { ConfigCode, readFile, settings } from '../store.js';
 
 export default async function page(el, app) {
   const tr = app.trainer;
-  let rows = null, cmpBusy = '', meas = null, cmpErr = '';
+  let rows = null, cmpBusy = '', meas = null, cmpErr = '', autoDone = false;
   const draw = () => {
     el.innerHTML = `<h1>${esc(t('lab_title'))}</h1><p class="mute">${esc(t('lab_intro'))}</p>
+      <div class="card" id="demoCard"><h2>${esc(t('demo_title'))}</h2><p class="small mute">${esc(t('demo_sub'))}</p>
+        <button class="btn fill big" id="demo" ${cmpBusy || tr.running ? 'disabled' : ''}>${esc(cmpBusy || t('demo_btn'))}</button>
+        ${rows ? (() => { const n = rows.find(r => r.name === 'cmp_none'), o = rows.find(r => r.name === 'cmp_ours'); const bad = n && n.acc < 0.3; return `<div class="grid g2e" style="margin-top:10px"><div class="banner bad"><b>${esc(t('demo_none'))}</b><div style="font-size:30px;font-weight:800">${(n.acc * 100).toFixed(1)}%</div><div class="small">${esc(bad ? t('demo_wrong') : '')}</div></div><div class="banner ok"><b>${esc(t('demo_ours'))}</b><div style="font-size:30px;font-weight:800">${(o.acc * 100).toFixed(1)}%</div><div class="small">${esc(t('demo_fixed'))} · ${esc(t('demo_fixed_n', o.repairs))}</div></div></div>`; })() : ''}</div>
+      
       <div class="grid g2e"><div class="card">
         <label class="switch"><span><b>${esc(t('set_verify'))}</b><br><span class="small mute">${esc(t('lab_verify_sub'))}</span></span><input type="checkbox" id="vf" ${settings.verify ? 'checked' : ''}></label>
         <div class="row" style="margin:10px 0"><button class="btn warn" id="bInt">⚡ ${esc(tr.interruptArmed ? t('lab_interrupt_armed') : t('lab_interrupt'))}</button>
@@ -33,7 +37,7 @@ export default async function page(el, app) {
     $('#bInt').onclick = () => tr.toggleInterruption(); $('#bCrash').onclick = () => tr.toggleCrash();
     $('#run').onclick = async () => { const m = await readFile(app.project, 'code/model.py'); tr.start({ project: app.project, h: +ConfigCode.value('hidden_units', m) || 128, lr: +ConfigCode.value('learning_rate', m) || 0.05, epochs: +ConfigCode.value('epochs', m) || 6, seed: +ConfigCode.value('seed', m) || 1, D: 2048, C: 10 }); };
     $('#rs')?.addEventListener('click', () => tr.resume());
-    $('#cmp').onclick = async () => {
+    const runCompare = async () => {
       cmpBusy = t('lab_run_of', 1, t('cmp_ref')); rows = null; cmpErr = ''; draw();
       const w = new Worker(new URL('../train-worker.js', import.meta.url), { type: 'module' });
       w.onmessage = e => { const m = e.data;
@@ -42,6 +46,8 @@ export default async function page(el, app) {
         else if (m.type === 'error') { cmpErr = m.message; cmpBusy = ''; w.terminate(); draw(); } };
       w.postMessage({ cmd: 'compare', seed: 1 });
     };
+    $('#cmp').onclick = runCompare; $('#demo').onclick = runCompare;
+    if (!autoDone && /[?&]demo=1/.test(location.hash) && !cmpBusy && !tr.running) { autoDone = true; runCompare(); }
     $('#meas').onclick = async () => { $('#meas').disabled = true; meas = await TrainClient.once({ cmd: 'measure' }); draw(); };
     wireAsk(el, t('lab_title'), () => `Verify: ${settings.verify}\nLast run: ${tr.log.slice(-6).join('\n')}\nCompare: ${rows ? rows.map(r => `${r.name} ${(r.acc * 100).toFixed(1)}% repairs ${r.repairs}`).join('; ') : 'not run'}`);
   };
