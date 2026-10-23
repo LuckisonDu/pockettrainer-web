@@ -68,7 +68,7 @@ export function highlight(code) {
 }
 // 编辑器：行号 + 着色层 + 透明 textarea。onChange(text) 在每次输入后调用
 export function codeEditor(host, text, onChange, readOnly = false) {
-  host.innerHTML = `<div class="gut"></div><div class="wrap"><pre aria-hidden="true"></pre><textarea spellcheck="false" ${readOnly ? 'readonly' : ''}></textarea></div>`;
+  host.innerHTML = `<div class="gut"></div><div class="wrap"><pre aria-hidden="true"></pre><textarea spellcheck="false" aria-label="Code editor" ${readOnly ? 'readonly' : ''}></textarea></div>`;
   const gut = host.querySelector('.gut'), pre = host.querySelector('pre'), ta = host.querySelector('textarea');
   const paint = () => {
     gut.textContent = ta.value.split('\n').map((_, i) => i + 1).join('\n');

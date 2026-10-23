@@ -59,7 +59,7 @@ export default async function page(el, app) {
         <div class="row" style="margin-top:8px"><button class="btn fill" id="dl" ${S.busy || S.model ? 'disabled' : ''}>${esc(S.model ? t('weights_done') : t('weights_download'))}</button></div>
         ${S.model ? `<div class="small mute mono" style="word-break:break-all">${S.model.length} bytes · sha256 ${esc(S.hash)}</div>` : ''}</div>
       <div class="card"><h2>2 · ${esc(t('web_onnx_image'))}</h2><div class="dz" id="dz">${S.file ? `<img id="prev" style="max-width:100%;max-height:180px;border-radius:8px">` : esc(t('web_onnx_pick'))}</div>
-        <input type="file" id="img" accept="image/*" style="margin-top:8px"></div></div>
+        <input type="file" id="img" aria-label="Choose a photo" accept="image/*" style="margin-top:8px"></div></div>
       <div class="card"><h2>3 · ${esc(t('web_onnx_run'))}</h2><p class="small mute">${esc(S.gpu === 'yes' ? t('web_onnx_gpu_yes') : S.gpu === 'no' ? t('web_onnx_gpu_no') : '…')}</p>
         <button class="btn fill" id="run" ${S.busy || !S.model || !S.file ? 'disabled' : ''}>${esc(S.busy ? S.status || t('ed_running') : t('web_onnx_run'))}</button>
         ${S.err ? `<div class="banner bad">${esc(S.err)}</div>` : ''}

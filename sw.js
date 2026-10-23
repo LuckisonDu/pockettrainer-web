@@ -1,6 +1,6 @@
 // Service worker：第一次打开后把页面、脚本、翻译和训练数据都存进浏览器缓存，之后断网也能训练 / 编辑。
 // 搜索和下载（GitHub / Hugging Face）需要网络，不经过这里（跨域请求直接放行）。
-const CACHE = 'pockettrainer-v2-5';
+const CACHE = 'pockettrainer-v2-6';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'css/app.css', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/favicon.png', 'icons/logo.svg',
   'js/main.js', 'js/i18n.js', 'js/store.js', 'js/db.js', 'js/util.js', 'js/ui.js', 'js/chatgpt.js', 'js/train-client.js', 'js/trainer.js', 'js/train-worker.js', 'js/shadow-worker.js',
   'js/mlp.js', 'js/mlp_ref.js', 'js/data.js', 'js/advice.js', 'js/net.js', 'js/importer.js', 'js/zip.js', 'js/tabular.js',
